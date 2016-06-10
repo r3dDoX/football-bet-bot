@@ -9,29 +9,30 @@ const goalQuantifier = 0.0045 * correction;
 const typicalGoals = 2.6 * correction;
 
 const teams = [
-    'France',
-    'Romania',
     'Albania',
-    'Switzerland',
-    'England',
-    'Russia',
-    'Wales',
-    'Slovakia',
-    'Germany',
-    'Poland',
-    'Ukraine',
-    'Northern Ireland',
-    'Italy',
+    'Austria',
     'Czechia',
     'Croatia',
-    'Spain',
-    'Turkey',
     'Belgium',
-    'Ireland',
-    'Portugal',
-    'Austria',
+    'England',
+    'France',
+    'Germany',
+    'Hungary',
     'Iceland',
-    'Hungary'
+    'Italy',
+    'Ireland',
+    'Northern Ireland',
+    'Poland',
+    'Portugal',
+    'Romania',
+    'Russia',
+    'Slovakia',
+    'Spain',
+    'Sweden',
+    'Switzerland',
+    'Turkey',
+    'Ukraine',
+    'Wales'
 ];
 
 function getCurrentEloRatings() {
