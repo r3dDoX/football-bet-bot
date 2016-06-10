@@ -1,12 +1,13 @@
 {
   "name": "football-bet-bot",
   "version": "1.0.0",
-  "author": "Patrick Walther",
+  "author": "",
   "description": "bot to calculate statistic football results",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cheerio": "0.20.0"
+  }
 }
