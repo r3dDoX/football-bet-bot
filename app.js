@@ -94,13 +94,25 @@ getCurrentEloRatings().then(data => {
             };
         })
         .reduce((sum, actResult) => {
-            sum.result1 += actResult.result1;
-            sum.result2 += actResult.result2;
+            const index = [actResult.result1, actResult.result2].join('');
+            if (sum[index]) {
+                sum[index].count += 1;
+            } else {
+                sum[index] = {
+                    result: actResult.result1 + ' - ' + actResult.result2,
+                    count: 1
+                };
+            }
             return sum;
-        }, {result1: 0, result2: 0});
+        }, {});
 
-    const result1 = Math.round(summedResults.result1/iterations);
-    const result2 = Math.round(summedResults.result2/iterations);
+    const bestResult = Object.getOwnPropertyNames(summedResults).reduce((bestResult, actPropertyName) => {
+        const actResult = summedResults[actPropertyName];
+        if (bestResult.count < actResult.count) {
+            return actResult;
+        }
+        return bestResult;
+    }, {count:0});
 
-    console.log(result1 + ' - ' + result2);
+    console.log(bestResult);
 });
