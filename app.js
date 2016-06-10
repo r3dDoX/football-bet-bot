@@ -54,7 +54,7 @@ function getCurrentEloRatings() {
 function getAverageStrength($) {
     return Math.round(teams
         .map(teamName => Number($(`table a:contains(${teamName})`).parents('tr').find('td:nth-child(4)').html()))
-        .reduce((teamStrength, sum) => sum + teamStrength, 0) / teams.length);
+        .reduce((sum, teamStrength) => sum + teamStrength, 0) / teams.length);
 }
 
 getCurrentEloRatings().then(data => {
@@ -77,25 +77,23 @@ getCurrentEloRatings().then(data => {
     const likelyGoals2 = (typicalGoals - goalDifference)/2;
     const likelyGoals1 = typicalGoals - likelyGoals2;
 
-    const dice1 = Math.ceil((likelyGoals1 * 6)/correction);
-    const dice2 = Math.ceil((likelyGoals2 * 6)/correction);
+    const dice1 = Array.apply(null, Array(Math.ceil((likelyGoals1 * 6)/correction)));
+    const dice2 = Array.apply(null, Array(Math.ceil((likelyGoals2 * 6)/correction)));
 
-    const iterations = 1000;
+    const iterations = 100000;
+    const calculateGoals = (triesArray) => {
+        return triesArray
+            .map(() => Math.ceil(Math.random() * 6))
+            .reduce((sum, result) => result === 6 ? sum + 1 : sum, 0);
+    };
     const summedResults = Array.apply(null, Array(iterations))
         .map(() => {
-            let result1 = 0;
-            let result2 = 0;
-
-            for(let i = 0; i < dice1; i++) {
-                if (Math.ceil(Math.random()*6) === 6) result1++;
-            }
-            for(let i = 0; i < dice2; i++) {
-                if (Math.ceil(Math.random()*6) === 6) result2++;
-            }
-
-            return {result1, result2};
+            return {
+                result1: calculateGoals(dice1),
+                result2: calculateGoals(dice2)
+            };
         })
-        .reduce((actResult, sum) => {
+        .reduce((sum, actResult) => {
             sum.result1 += actResult.result1;
             sum.result2 += actResult.result2;
             return sum;
