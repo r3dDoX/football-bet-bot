@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 const team1 = process.argv[2];
 const team2 = process.argv[3];
 
-const correction = 10;
+const correction = 10;// to get even numbers throughout calculation (js numbers...)
 const goalQuantifier = 0.0045 * correction;
 const typicalGoals = 2.6 * correction;
 
