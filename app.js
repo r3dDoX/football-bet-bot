@@ -59,6 +59,12 @@ function getAverageStrength($) {
             .reduce((sum, teamStrength) => sum + teamStrength, 0) / teams.length;
 }
 
+function calculateGoals(triesArray) {
+    return triesArray
+        .map(() => Math.ceil(Math.random() * 6))
+        .reduce((sum, actTryResult) => actTryResult === 6 ? sum + 1 : sum, 0);
+}
+
 getCurrentEloRatings().then(data => {
     const $ = cheerio.load(data);
 
@@ -82,11 +88,6 @@ getCurrentEloRatings().then(data => {
     const goalTries1 = Array.apply(null, Array(Math.ceil((typicalGoalShare1 * goalTriesQuantifier) / correction)));
     const goalTries2 = Array.apply(null, Array(Math.ceil((typicalGoalShare2 * goalTriesQuantifier) / correction)));
 
-    const calculateGoals = (triesArray) => {
-        return triesArray
-            .map(() => Math.ceil(Math.random() * 6))
-            .reduce((sum, actTryResult) => actTryResult === 6 ? sum + 1 : sum, 0);
-    };
     const summedResults = Array.apply(null, Array(iterations))
         .map(() => {
             return {
